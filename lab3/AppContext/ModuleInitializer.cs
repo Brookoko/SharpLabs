@@ -1,4 +1,4 @@
-namespace BallDefence.Core.LogicComponents
+namespace AppContext
 {
     using System.Collections.Generic;
     using System.Linq;

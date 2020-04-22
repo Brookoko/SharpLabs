@@ -1,7 +1,7 @@
 namespace AppContext
 {
-    using BallDefence.Injection;
-    using BallDefence.Injection.Commands;
+    using DependencyInjection;
+    using DependencyInjection.Commands;
     using JetBrains.Annotations;
 
     public interface IModuleInstaller

@@ -1,4 +1,4 @@
-namespace BallDefence.Injection.Commands
+namespace DependencyInjection.Commands
 {
     using Signals;
     using System;

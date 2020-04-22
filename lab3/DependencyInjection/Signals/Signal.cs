@@ -1,4 +1,4 @@
-namespace BallDefence.Injection.Signals
+namespace DependencyInjection.Signals
 {
     using System;
     using System.Collections.Generic;

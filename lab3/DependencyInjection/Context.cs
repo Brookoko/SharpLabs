@@ -1,4 +1,4 @@
-namespace BallDefence.Injection
+namespace DependencyInjection
 {
     using Commands;
     

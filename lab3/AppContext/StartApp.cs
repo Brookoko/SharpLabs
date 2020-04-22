@@ -1,6 +1,6 @@
 namespace AppContext
 {
-    using BallDefence.Injection.Signals;
+    using DependencyInjection.Signals;
     
     public class StartApp : Signal { }
 }
