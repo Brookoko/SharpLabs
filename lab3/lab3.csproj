@@ -42,6 +42,14 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="AppContext\AppContext.csproj">
+        <Project>{64564ec7-26c9-4a01-8878-dd5be5efb561}</Project>
+        <Name>AppContext</Name>
+      </ProjectReference>
+      <ProjectReference Include="ConsoleApp\ConsoleApp.csproj">
+        <Project>{146cf2f5-748a-4808-b631-1cd93a2811c9}</Project>
+        <Name>ConsoleApp</Name>
+      </ProjectReference>
       <ProjectReference Include="DependencyInjection\DependencyInjection.csproj">
         <Project>{3a4444a4-a3df-43c6-82bd-d4efa98c83c1}</Project>
         <Name>DependencyInjection</Name>
