@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{F8051FEB-E0BA-4DA0-B7C9-687434A14BE8}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>lab1</RootNamespace>
+        <AssemblyName>lab1</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="ConsoleUtils\ConsoleOptions.cs" />
+        <Compile Include="ConsoleUtils\ConsoleOptionsState.cs" />
+        <Compile Include="ConsoleUtils\Options.cs" />
+        <Compile Include="ConsoleUtils\Parameters.cs" />
+        <Compile Include="ConsoleUtils\Types\NationMenu.cs" />
+        <Compile Include="ConsoleUtils\Types\SingleNationMenu.cs" />
+        <Compile Include="ConsoleUtils\Types\StartMenu.cs" />
+        <Compile Include="ConsoleUtils\Types\TerritoriesMenu.cs" />
+        <Compile Include="Nations\Nation.cs" />
+        <Compile Include="Nations\NationFactory.cs" />
+        <Compile Include="People\Noble.cs" />
+        <Compile Include="People\Person.cs" />
+        <Compile Include="People\PersonFactory.cs" />
+        <Compile Include="People\Worker.cs" />
+        <Compile Include="Program.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="People\Warrior.cs" />
+        <Compile Include="Resources\IResourceType.cs" />
+        <Compile Include="Resources\Resource.cs" />
+        <Compile Include="Resources\ResourceFactory.cs" />
+        <Compile Include="Resources\Types\Gold.cs" />
+        <Compile Include="Resources\Types\Stone.cs" />
+        <Compile Include="Resources\Types\Wood.cs" />
+        <Compile Include="Territories\IResourceProducer.cs" />
+        <Compile Include="Territories\Territory.cs" />
+        <Compile Include="Territories\TerritoryFactory.cs" />
+        <Compile Include="Territories\Types\Castle.cs" />
+        <Compile Include="Territories\Types\Forest.cs" />
+        <Compile Include="Territories\Types\Mine.cs" />
+        <Compile Include="Wallet\Account.cs" />
+        <Compile Include="Wallet\IWallet.cs" />
+        <Compile Include="World\World.cs" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>
