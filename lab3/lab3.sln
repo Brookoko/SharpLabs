@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab3", "lab3.csproj", "{8D3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{3A4444A4-A3DF-43C6-82BD-D4EFA98C83C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppContext", "AppContext\AppContext.csproj", "{64564EC7-26C9-4A01-8878-DD5BE5EFB561}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{3A4444A4-A3DF-43C6-82BD-D4EFA98C83C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A4444A4-A3DF-43C6-82BD-D4EFA98C83C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A4444A4-A3DF-43C6-82BD-D4EFA98C83C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64564EC7-26C9-4A01-8878-DD5BE5EFB561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64564EC7-26C9-4A01-8878-DD5BE5EFB561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64564EC7-26C9-4A01-8878-DD5BE5EFB561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64564EC7-26C9-4A01-8878-DD5BE5EFB561}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

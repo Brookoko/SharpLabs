@@ -7,7 +7,7 @@ namespace BallDefence.Injection
         private IInjectionBinder injectionBinder;
         private ICommandInjector commandInjector;
         
-        public IInjectionBinder InjectionBinderBinder
+        public IInjectionBinder InjectionBinder
         {
             get => injectionBinder ?? new InjectionBinder();
             private set => injectionBinder = value;
@@ -28,10 +28,10 @@ namespace BallDefence.Injection
         
         protected virtual void Prepare()
         {
-            InjectionBinderBinder = new InjectionBinder();
-            InjectionBinderBinder.Bind<IInjectionBinder>().ToInstance(InjectionBinderBinder);
-            CommandInjector = new CommandInjector {InjectionBinder = InjectionBinderBinder};
-            InjectionBinderBinder.Bind<ICommandInjector>().ToInstance(CommandInjector);
+            InjectionBinder = new InjectionBinder();
+            InjectionBinder.Bind<IInjectionBinder>().ToInstance(InjectionBinder);
+            CommandInjector = new CommandInjector {InjectionBinder = InjectionBinder};
+            InjectionBinder.Bind<ICommandInjector>().ToInstance(CommandInjector);
         }
         
         protected virtual void ApplyBindings()
