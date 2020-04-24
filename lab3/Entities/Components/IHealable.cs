@@ -2,6 +2,13 @@ namespace Entities
 {
     public interface IHealable
     {
-        void Heal(float healing);
+        void TakeHealing(float healing);
+    }
+    
+    public interface IHealer
+    {
+        float Healing { get; }
+        
+        void Heal(Entity entity);
     }
 }

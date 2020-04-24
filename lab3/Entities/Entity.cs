@@ -2,7 +2,7 @@ namespace Entities
 {
     using Environment;
 
-    public abstract class Entity : IHittable, IHealable, IOffensive, IMovable
+    public abstract class Entity : IHittable, IHealable, IHealer, IOffensive, IMovable
     {
         public Hitbox Hitbox { get; }
         
@@ -14,6 +14,8 @@ namespace Entities
         
         public Position Position { get; private set; }
         
+        public abstract float Healing { get; set; }
+        
         public Entity(Hitbox hitbox)
         {
             Hitbox = hitbox;
@@ -21,26 +23,32 @@ namespace Entities
             hitbox.OnDeath += OnDeath;
         }
         
-        protected abstract void OnDamage();
+        protected virtual void OnDamage()
+        {
+        }
 
-        protected abstract void OnDeath();
+        protected virtual void OnDeath()
+        {
+        }
         
         public void TakeDamage(Damage damage)
         {
             Hitbox.TakeDamage(damage);
         }
         
-        public void Heal(float healing)
+        
+        public abstract void Heal(Entity entity);
+        
+        public void TakeHealing(float healing)
         {
-            Hitbox.Heal(healing);
+            Hitbox.TakeHealing(healing);
         }
         
         public Damage Attack(Entity entity)
         {
             return Weapon.Attack(entity);
         }
-
-
+        
         public void Move(Position position)
         {
             if (position.CanTraverse(this))

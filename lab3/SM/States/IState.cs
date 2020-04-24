@@ -5,7 +5,5 @@ namespace SM.States
         void OnEnter();
         
         void OnExit();
-        
-        void Update();
     }
 }

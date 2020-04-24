@@ -8,11 +8,21 @@ namespace SM.States
     {
         public List<Transition> Transitions { get; } = new List<Transition>();
         
-        public abstract void OnEnter();
+        public virtual void OnEnter()
+        {
+            foreach (var transition in Transitions)
+            {
+                transition.Rule.Prepare();
+            }
+        }
         
-        public abstract void OnExit();
-
-        public abstract void Update();
+        public virtual void OnExit()
+        {
+            foreach (var transition in Transitions)
+            {
+                transition.Rule.Reset();
+            }
+        }
         
         public bool CanTransit()
         {

@@ -14,7 +14,6 @@ namespace SM
         
         public void Update()
         {
-            current.Update();
             TryToTransit();
         }
         

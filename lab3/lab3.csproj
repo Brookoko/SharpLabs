@@ -47,17 +47,30 @@
         <Compile Include="Entities\Components\IOffensive.cs" />
         <Compile Include="Entities\Components\Weapon.cs" />
         <Compile Include="Entities\Entity.cs" />
-        <Compile Include="Entities\EntitySM\EntityState.cs" />
         <Compile Include="Entities\StateDrivenEntity.cs" />
+        <Compile Include="Entities\StatesTypes\Rules\AttackRule.cs" />
+        <Compile Include="Entities\StatesTypes\Rules\CommandRule.cs" />
+        <Compile Include="Entities\StatesTypes\Rules\HealRule.cs" />
+        <Compile Include="Entities\StatesTypes\Rules\MoveRule.cs" />
+        <Compile Include="Entities\StatesTypes\Rules\WaitRule.cs" />
+        <Compile Include="Entities\StatesTypes\SMTypes\DefaultStateMachine.cs" />
+        <Compile Include="Entities\StatesTypes\SMTypes\EntityStateMachine.cs" />
+        <Compile Include="Entities\StatesTypes\SMTypes\HealingStateMachine.cs" />
+        <Compile Include="Entities\StatesTypes\States\AttackState.cs" />
+        <Compile Include="Entities\StatesTypes\States\EntityState.cs" />
+        <Compile Include="Entities\StatesTypes\States\HealState.cs" />
+        <Compile Include="Entities\StatesTypes\States\IdleState.cs" />
+        <Compile Include="Entities\StatesTypes\States\MoveState.cs" />
+        <Compile Include="Entities\Types\Healer.cs" />
         <Compile Include="Environment\Position.cs" />
+        <Compile Include="Flow\Signals.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="SM\Rules\IRule.cs" />
-        <Compile Include="SM\Rules\DefaultRule.cs" />
         <Compile Include="SM\StateMachine.cs" />
         <Compile Include="SM\States\IState.cs" />
         <Compile Include="SM\States\State.cs" />
         <Compile Include="SM\States\StateExtensions.cs" />
+        <Compile Include="SM\Transitions\IRule.cs" />
         <Compile Include="SM\Transitions\Transition.cs" />
     </ItemGroup>
     <ItemGroup>

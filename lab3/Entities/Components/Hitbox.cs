@@ -28,7 +28,7 @@ namespace Entities
             if (Hp <= 0) OnDeath?.Invoke();
         }
         
-        public void Heal(float healing)
+        public void TakeHealing(float healing)
         {
             Hp = Math.Min(Hp + healing, MaxHp);
         }
