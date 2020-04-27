@@ -13,6 +13,10 @@ namespace Entities.StatesTypes.SMTypes
             var attack = (EntityState) Binder.Inject(new AttackState(entity));
             var move = (EntityState) Binder.Inject(new MoveState(entity));
             
+            idle.Prepare();
+            attack.Prepare();
+            move.Prepare();
+            
             idle.To(move).If((IRule) Binder.Inject(new MoveRule(entity)));
             idle.To(attack).If((IRule) Binder.Inject(new AttackRule(entity)));
             move.To(idle).If(new InstantRule());

@@ -27,7 +27,7 @@ namespace Entities.StatesTypes.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Entity.Attack(lastBeatedEntity);
+            lastBeatedEntity.TakeDamage(Entity.Attack(lastBeatedEntity));
         }
     }
 }

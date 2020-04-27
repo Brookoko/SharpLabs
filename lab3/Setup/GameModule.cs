@@ -2,6 +2,7 @@ namespace Setup
 {
     using AppContext;
     using Entities;
+    using Environment;
     using Flow;
     using Flow.Commands;
 
@@ -13,6 +14,7 @@ namespace Setup
         {
             InjectorBinder.Bind<EntityFactory>().To<EntityFactory>().ToSingleton();
             InjectorBinder.Bind<IEntityManager>().To<EntityManager>().ToSingleton();
+            InjectorBinder.Bind<World>().To<World>().ToSingleton();
             
             InjectorBinder.Bind<EntityMoving>().ToSingleton();
             InjectorBinder.Bind<EntityAttacking>().ToSingleton();
@@ -20,6 +22,7 @@ namespace Setup
             
             CommandBinder.Bind<StartApp>()
                 .To<SetupEntityVariantsCommand>()
+                .To<CreateEnvironmentCommand>()
                 .To<CreateRandomEntitiesCommand>()
                 .InSequence();
         }

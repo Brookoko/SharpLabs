@@ -38,6 +38,8 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="App\App.cs" />
+        <Compile Include="App\StartOptions.cs" />
         <Compile Include="Entities\Components\Damage.cs" />
         <Compile Include="Entities\Components\EffectWeakness.cs" />
         <Compile Include="Entities\Components\Hitbox.cs" />
@@ -75,7 +77,9 @@
         <Compile Include="Entities\Weapons\Spear.cs" />
         <Compile Include="Entities\Weapons\Sword.cs" />
         <Compile Include="Environment\Position.cs" />
+        <Compile Include="Environment\World.cs" />
         <Compile Include="Exceptions\InvalidAction.cs" />
+        <Compile Include="Flow\Commands\CreateEnvironmentCommand.cs" />
         <Compile Include="Flow\Commands\CreateRandomEntitiesCommand.cs" />
         <Compile Include="Flow\Commands\SetupEntityVariantsCommand.cs" />
         <Compile Include="Flow\Signals.cs" />

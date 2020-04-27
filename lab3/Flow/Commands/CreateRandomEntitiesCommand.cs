@@ -18,7 +18,7 @@ namespace Flow.Commands
         {
             var variants = EntityFactory.Variants.ToList();
             var random = new Random();
-            var count = random.Next(20);
+            var count = random.Next(5, 15);
             for (var i = 0; i < count; i++)
             {
                 var index = random.Next(variants.Count);

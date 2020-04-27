@@ -2,6 +2,7 @@ namespace ConsoleApp
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class Options : IOptions
     {
@@ -12,7 +13,7 @@ namespace ConsoleApp
 
         public void AddOption(string option, Action<Parameters> action)
         {
-            var parameters = option.Split(' ');
+            var parameters = option.Trim().Split(' ');
             var name = parameters[0];
             descriptions[name] = option;
             options[name] = action;
@@ -20,9 +21,16 @@ namespace ConsoleApp
 
         public bool ValidateInput(string option)
         {
-            option = option.Trim();
-            var name = option.Split(' ')[0];
-            return !string.IsNullOrEmpty(name) && options.ContainsKey(name);
+            var name = option.Trim().Split(' ')[0];
+            return !string.IsNullOrEmpty(name) && options.ContainsKey(name) &&
+                   SameTypes(option, descriptions[name]);
+        }
+
+        private bool SameTypes(string option, string description)
+        {
+            var first = option.Trim().Split(' ').Skip(1).Select(s => s[0]).ToList();
+            var second = description.Trim().Split(' ').Skip(1).Select(s => s[0]).ToList();
+            return first.Count == second.Count && !first.Where((param, i) => param != second[i]).Any();
         }
 
         public void RunOption(string option)

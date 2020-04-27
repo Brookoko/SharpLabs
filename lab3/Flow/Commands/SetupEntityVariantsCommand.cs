@@ -1,5 +1,6 @@
 namespace Flow.Commands
 {
+    using System.Linq;
     using DependencyInjection;
     using DependencyInjection.Commands;
     using Entities;
@@ -36,6 +37,7 @@ namespace Flow.Commands
             var sm = (EntityStateMachine) Binder.Inject(new DefaultStateMachine());
             return new Orc(hitbox, sm)
             {
+                Name = $"Orc-{weapon.ToString().Split('.').Last()}",
                 Weapon = weapon,
                 MovementType = MovementType.Walk
             };
@@ -50,6 +52,7 @@ namespace Flow.Commands
             var sm = (EntityStateMachine) Binder.Inject(new DefaultStateMachine());
             return new Knight(hitbox, sm)
             {
+                Name = $"Knight-{weapon.ToString().Split('.').Last()}-{movement}",
                 Weapon = weapon,
                 MovementType = movement
             };
@@ -64,6 +67,7 @@ namespace Flow.Commands
             var sm = (EntityStateMachine) Binder.Inject(new HealerStateMachine());
             return new Healer(hitbox, sm)
             {
+                Name = "Healer",
                 MovementType = MovementType.Walk
             };
         }
@@ -77,6 +81,7 @@ namespace Flow.Commands
             var sm = (EntityStateMachine) Binder.Inject(new HealerStateMachine());
             return new Magician(hitbox, sm)
             {
+                Name = "Magician",
                 Weapon = new MagicWand(),
                 MovementType = MovementType.Walk
             };

@@ -1,6 +1,5 @@
 namespace Environment
 {
-    using System;
     using Entities;
 
     public struct Position
@@ -10,6 +9,13 @@ namespace Environment
         public int y;
         
         public PositionType type;
+        
+        public Position(int x, int y, PositionType type)
+        {
+            this.x = x;
+            this.y = y;
+            this.type = type;
+        }
         
         public bool CanTraverse(IMovable movable)
         {

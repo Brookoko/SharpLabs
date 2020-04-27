@@ -18,6 +18,11 @@ namespace Entities.StatesTypes.SMTypes
             idle.To(attack).If((IRule) Binder.Inject(new AttackRule(entity)));
             idle.To(heal).If((IRule) Binder.Inject(new HealRule(entity)));
             
+            idle.Prepare();
+            attack.Prepare();
+            move.Prepare();
+            heal.Prepare();
+            
             heal.To(idle).If(new InstantRule());
             move.To(idle).If(new InstantRule());
             attack.To(idle).If(new InstantRule());

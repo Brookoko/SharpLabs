@@ -29,7 +29,7 @@ namespace DependencyInjection
 
         public void RemoveBindingFor(Type type)
         {
-            
+            mappings.Remove(type);
         }
     }
     

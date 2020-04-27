@@ -2,7 +2,7 @@ namespace Entities
 {
     using System;
 
-    public class Hitbox : IHittable, IHealable
+    public class Hitbox : IHittable, IHealable, ICloneable<Hitbox>
     {
         public float Hp { get; private set; }
         
@@ -24,6 +24,7 @@ namespace Entities
             if (Hp <= 0) return;
             damage = Weakness.ApplyAdditionalDamage(damage);
             Hp -= damage.Amount;
+            Console.WriteLine($"Hp: {Hp}");
             OnDamage?.Invoke();
             if (Hp <= 0) OnDeath?.Invoke();
         }
@@ -31,6 +32,11 @@ namespace Entities
         public void TakeHealing(float healing)
         {
             Hp = Math.Min(Hp + healing, MaxHp);
+        }
+
+        public Hitbox Clone()
+        {
+            return new Hitbox(MaxHp, Weakness);
         }
     }
 }

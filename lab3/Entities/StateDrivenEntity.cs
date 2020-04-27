@@ -14,15 +14,16 @@ namespace Entities
             sm.Start();
         }
         
-        public void Update()
+        public override void Update()
         {
             sm.Update();
         }
         
         public override Entity Clone()
         {
-            return new StateDrivenEntity(Hitbox, sm.Clone())
+            return new StateDrivenEntity(Hitbox.Clone(), sm.Clone())
             {
+                Name = Name,
                 Weapon = Weapon,
                 MovementType = MovementType,
                 Position = Position,

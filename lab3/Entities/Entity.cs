@@ -5,6 +5,10 @@ namespace Entities
 
     public abstract class Entity : IHittable, IHealable, IHealer, IOffensive, IMovable, ICloneable<Entity>
     {
+        public int Id { get; set; }
+        
+        public string Name { get; set; }
+        
         public Hitbox Hitbox { get; }
         
         public Weapon Weapon { get; set; }
@@ -13,7 +17,7 @@ namespace Entities
 
         public MovementType MovementType { get; set; }
         
-        public Position Position { get; protected set; }
+        public Position Position { get; set; }
         
         public float Healing { get; set; }
         
@@ -61,5 +65,9 @@ namespace Entities
         }
         
         public abstract Entity Clone();
+        
+        public virtual void Update()
+        {
+        }
     }
 }
