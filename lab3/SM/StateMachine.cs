@@ -5,16 +5,25 @@ namespace SM
     public class StateMachine
     {
         private State current;
+        private bool shouldProcess;
         
         public void Init(State state)
         {
             current = state;
+        }
+
+        public void Start()
+        {
+            shouldProcess = true;
             current.OnEnter();
         }
         
         public void Update()
         {
-            TryToTransit();
+            if (shouldProcess)
+            {
+                TryToTransit();
+            }
         }
         
         private void TryToTransit()
@@ -26,6 +35,13 @@ namespace SM
                 next.OnEnter();
                 current = next;
             }
+        }
+
+        public void Stop()
+        {
+            shouldProcess = false;
+            current.OnExit();
+            current = null;
         }
     }
 }

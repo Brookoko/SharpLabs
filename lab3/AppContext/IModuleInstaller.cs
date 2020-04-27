@@ -24,14 +24,14 @@ namespace AppContext
         
         public abstract string Name { get; }
 
-        public IInjectionBinder Injector;
+        public IInjectionBinder InjectorBinder;
         
-        public ICommandInjector CommandInjector;
+        public ICommandInjector CommandBinder;
 
         public void ExecuteAfterBindings(IInjectionBinder injector, ICommandInjector commandInjector)
         {
-            Injector = injector;
-            CommandInjector = commandInjector;
+            InjectorBinder = injector;
+            CommandBinder = commandInjector;
             ExecuteAfterBindings();
         }
 

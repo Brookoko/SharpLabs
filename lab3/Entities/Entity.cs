@@ -1,8 +1,9 @@
 namespace Entities
 {
     using Environment;
+    using Exceptions;
 
-    public abstract class Entity : IHittable, IHealable, IHealer, IOffensive, IMovable
+    public abstract class Entity : IHittable, IHealable, IHealer, IOffensive, IMovable, ICloneable<Entity>
     {
         public Hitbox Hitbox { get; }
         
@@ -10,11 +11,11 @@ namespace Entities
         
         public float Hp => Hitbox.Hp;
 
-        public MovementType MovementType { get; }
+        public MovementType MovementType { get; set; }
         
-        public Position Position { get; private set; }
+        public Position Position { get; protected set; }
         
-        public abstract float Healing { get; set; }
+        public float Healing { get; set; }
         
         public Entity(Hitbox hitbox)
         {
@@ -36,8 +37,10 @@ namespace Entities
             Hitbox.TakeDamage(damage);
         }
         
-        
-        public abstract void Heal(Entity entity);
+        public virtual void Heal(Entity entity)
+        {
+            throw new InvalidActionException("Cannot use heal on this character");
+        }
         
         public void TakeHealing(float healing)
         {
@@ -46,7 +49,7 @@ namespace Entities
         
         public Damage Attack(Entity entity)
         {
-            return Weapon.Attack(entity);
+            return Weapon?.Attack(entity) ?? Damage.NoDamage;
         }
         
         public void Move(Position position)
@@ -56,5 +59,7 @@ namespace Entities
                 Position = position;
             }
         }
+        
+        public abstract Entity Clone();
     }
 }

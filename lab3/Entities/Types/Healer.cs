@@ -1,12 +1,12 @@
 namespace Entities.Types
 {
-    public class Healer : Entity
+    using StatesTypes.SMTypes;
+    
+    public class Healer : StateDrivenEntity
     {
-        public Healer(Hitbox hitbox) : base(hitbox)
+        public Healer(Hitbox hitbox, EntityStateMachine sm) : base(hitbox, sm)
         {
         }
-        
-        public override float Healing { get;  set; }
         
         public override void Heal(Entity entity)
         {

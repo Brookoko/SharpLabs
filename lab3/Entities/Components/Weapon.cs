@@ -2,9 +2,9 @@ namespace Entities
 {
     public abstract class Weapon : IOffensive
     {
-        public float Damage { get; }
+        public abstract float Damage { get; }
         
-        public AttackEffect Effect { get; }
+        public abstract AttackEffect Effect { get; }
         
         public Damage Attack(Entity entity)
         {

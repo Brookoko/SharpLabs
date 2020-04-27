@@ -1,6 +1,5 @@
 namespace Entities.StatesTypes.SMTypes
 {
-    using DependencyInjection;
     using Rules;
     using SM.Rules;
     using SM.States;
@@ -8,9 +7,6 @@ namespace Entities.StatesTypes.SMTypes
 
     public class DefaultStateMachine : EntityStateMachine
     {
-        [Inject]
-        public IInjectionBinder Binder { get; set; }
-        
         public override void Prepare(Entity entity)
         {
             var idle = (EntityState) Binder.Inject(new IdleState(entity));
@@ -19,8 +15,10 @@ namespace Entities.StatesTypes.SMTypes
             
             idle.To(move).If((IRule) Binder.Inject(new MoveRule(entity)));
             idle.To(attack).If((IRule) Binder.Inject(new AttackRule(entity)));
-            move.To(idle).If(new WaitRule(100));
-            attack.To(idle).If(new WaitRule(100));
+            move.To(idle).If(new InstantRule());
+            attack.To(idle).If(new InstantRule());
+            
+            Init(idle);
         }
     }
 }
