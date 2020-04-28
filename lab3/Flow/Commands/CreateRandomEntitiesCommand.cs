@@ -5,7 +5,7 @@ namespace Flow.Commands
     using DependencyInjection;
     using DependencyInjection.Commands;
     using Entities;
-
+    
     public class CreateRandomEntitiesCommand : Command
     {
         [Inject]

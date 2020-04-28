@@ -30,7 +30,7 @@ namespace ConsoleApp
         {
             var first = option.Trim().Split(' ').Skip(1).Select(s => s[0]).ToList();
             var second = description.Trim().Split(' ').Skip(1).Select(s => s[0]).ToList();
-            return first.Count == second.Count && !first.Where((param, i) => param != second[i]).Any();
+            return first.Count == second.Count;
         }
 
         public void RunOption(string option)

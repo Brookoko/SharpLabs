@@ -20,6 +20,7 @@ namespace Entities
         public void Register(Entity entity)
         {
             entity.Id = entities.Count;
+            entity.Prepare();
             entities.Add(entity);
             entity.Hitbox.OnDeath += () => Remove(entity);
         }

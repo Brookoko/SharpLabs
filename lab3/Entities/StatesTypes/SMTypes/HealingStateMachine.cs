@@ -5,7 +5,7 @@ namespace Entities.StatesTypes.SMTypes
     using SM.States;
     using States;
 
-    public class HealerStateMachine : EntityStateMachine
+    public class HealingStateMachine : EntityStateMachine
     {
         public override void Prepare(Entity entity)
         {

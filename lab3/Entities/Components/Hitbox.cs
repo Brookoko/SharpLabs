@@ -24,7 +24,6 @@ namespace Entities
             if (Hp <= 0) return;
             damage = Weakness.ApplyAdditionalDamage(damage);
             Hp -= damage.Amount;
-            Console.WriteLine($"Hp: {Hp}");
             OnDamage?.Invoke();
             if (Hp <= 0) OnDeath?.Invoke();
         }

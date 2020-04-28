@@ -64,11 +64,12 @@ namespace Flow.Commands
             weakness.AddOrUpdateWeaknesses(AttackEffect.Tearing, 0.3f);
             weakness.AddOrUpdateWeaknesses(AttackEffect.Piercing, 0.3f);
             var hitbox = new Hitbox(15, weakness);
-            var sm = (EntityStateMachine) Binder.Inject(new HealerStateMachine());
+            var sm = (EntityStateMachine) Binder.Inject(new HealingStateMachine());
             return new Healer(hitbox, sm)
             {
                 Name = "Healer",
-                MovementType = MovementType.Walk
+                MovementType = MovementType.Walk,
+                Healing = 5
             };
         }
 
@@ -78,7 +79,7 @@ namespace Flow.Commands
             weakness.AddOrUpdateWeaknesses(AttackEffect.Tearing, 0.1f);
             weakness.AddOrUpdateWeaknesses(AttackEffect.Piercing, 0.1f);
             var hitbox = new Hitbox(15, weakness);
-            var sm = (EntityStateMachine) Binder.Inject(new HealerStateMachine());
+            var sm = (EntityStateMachine) Binder.Inject(new HealingStateMachine());
             return new Magician(hitbox, sm)
             {
                 Name = "Magician",

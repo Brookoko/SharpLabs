@@ -12,5 +12,17 @@ namespace Entities.Types
         {
             entity.TakeHealing(Healing);
         }
+        
+        public override Entity Clone()
+        {
+            return new Healer(Hitbox.Clone(), sm.Clone())
+            {
+                Name = Name,
+                Weapon = Weapon,
+                MovementType = MovementType,
+                Position = Position,
+                Healing = Healing,
+            };
+        }
     }
 }

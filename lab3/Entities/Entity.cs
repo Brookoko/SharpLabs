@@ -1,5 +1,6 @@
 namespace Entities
 {
+    using System;
     using Environment;
     using Exceptions;
 
@@ -26,6 +27,10 @@ namespace Entities
             Hitbox = hitbox;
             hitbox.OnDamage += OnDamage;
             hitbox.OnDeath += OnDeath;
+        }
+        
+        public virtual void Prepare()
+        {
         }
         
         protected virtual void OnDamage()

@@ -24,6 +24,11 @@ namespace Environment
             if ((movable.MovementType & MovementType.Swim) != 0 && type == PositionType.Water) return true;
             return false;
         }
+
+        public override string ToString()
+        {
+            return $"({x}, {y}) {type}";
+        }
     }
 
     public enum PositionType

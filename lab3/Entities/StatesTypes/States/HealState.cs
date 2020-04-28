@@ -2,6 +2,7 @@ namespace Entities.StatesTypes.States
 {
     using DependencyInjection;
     using Flow;
+    using Types;
 
     public class HealState : EntityState
     {
@@ -27,7 +28,7 @@ namespace Entities.StatesTypes.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Entity.Heal(lastHealedEntity);
+            ((Healer) Entity).Heal(lastHealedEntity);
         }
 
         public override void OnExit()

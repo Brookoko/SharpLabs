@@ -5,11 +5,15 @@ namespace Entities
 
     public class StateDrivenEntity : Entity
     {
-        private EntityStateMachine sm;
+        protected EntityStateMachine sm;
         
         public StateDrivenEntity(Hitbox hitbox, EntityStateMachine sm) : base(hitbox)
         {
             this.sm = sm;
+        }
+        
+        public override void Prepare()
+        {
             sm.Prepare(this);
             sm.Start();
         }
@@ -26,8 +30,7 @@ namespace Entities
                 Name = Name,
                 Weapon = Weapon,
                 MovementType = MovementType,
-                Position = Position,
-                Healing = Healing,
+                Position = Position
             };
         }
     }
