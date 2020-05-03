@@ -41,6 +41,10 @@
         <Compile Include="AppSetup\App.cs" />
         <Compile Include="AppSetup\AppModule.cs" />
         <Compile Include="AppSetup\StartOptions.cs" />
+        <Compile Include="Data\Worker.cs" />
+        <Compile Include="Data\Project.cs" />
+        <Compile Include="Data\ProjectsHolder.cs" />
+        <Compile Include="Data\Queries.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
