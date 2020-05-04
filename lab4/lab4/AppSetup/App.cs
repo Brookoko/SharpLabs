@@ -7,7 +7,7 @@ namespace AppSetup
     {
         public App(IInjectionBinder binder)
         {
-            var start = new StartOptions();
+            var start = (IOptions) binder.Inject(new StartOptions());
             start.AddOption("--exit", _ => StopProcessingInput());
             Options = start;
         }

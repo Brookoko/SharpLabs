@@ -10,6 +10,7 @@ namespace Data
         
         public void RegisterProject(Project project)
         {
+            project.Id = projects.Count;
             projects.Add(project);
         }
     }

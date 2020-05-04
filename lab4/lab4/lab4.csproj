@@ -45,6 +45,7 @@
         <Compile Include="Data\Project.cs" />
         <Compile Include="Data\ProjectsHolder.cs" />
         <Compile Include="Data\Queries.cs" />
+        <Compile Include="Flow\SetupCommand.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

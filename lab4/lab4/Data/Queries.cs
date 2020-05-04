@@ -10,9 +10,9 @@ namespace Data
         [Inject]
         public ProjectsHolder ProjectsHolder { get; set; }
         
-        public IEnumerable<string> AllProjectsNames()
+        public IEnumerable<Project> AllProjects()
         {
-            return ProjectsHolder.Projects.Select(p => p.Name);
+            return ProjectsHolder.Projects;
         }
         
         public IEnumerable<Project> CompletedProjects()
@@ -72,14 +72,7 @@ namespace Data
                 .Where(p => !p.IsCompleted && p.Workers.Contains(worker))
                 .OrderByDescending(p => p.Start);
         }
-
-        public IEnumerable<Worker> WorkersWithName(string name)
-        {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .Where(w => w.FirstName == name);
-        }
-
+        
         public string CommonName()
         {
             return ProjectsHolder.Projects
@@ -114,12 +107,18 @@ namespace Data
                 .Count(p => p.Workers.Contains(worker));
         }
 
-        public int WorkersCount()
+        public IEnumerable<Worker> AllWorkers()
         {
             return ProjectsHolder.Projects
                 .SelectMany(p => p.Workers)
-                .Distinct()
-                .Count();
+                .OrderBy(w => w.Id)
+                .Distinct();
+        }
+        
+        public IEnumerable<Worker> WorkersWithName(string name)
+        {
+            return AllWorkers()
+                .Where(w => w.FirstName == name);
         }
     }
 }

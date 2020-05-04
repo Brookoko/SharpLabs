@@ -2,6 +2,7 @@ namespace Data
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Project
     {
@@ -18,5 +19,11 @@ namespace Data
         public bool IsCompleted { get; set; }
         
         public List<Worker> Workers { get; set; }
+        
+        public override string ToString()
+        {
+            var workers = Workers.Aggregate("", (acc, w) => acc + " : " + w).Substring(3);
+            return $"{Name}  {Start:MM/dd/yyyy}-{(IsCompleted ? End.ToString(@"MM/dd/yyyy") : "")} ({Cost:F2}) {workers}";
+        }
     }
 }
