@@ -6,16 +6,22 @@ namespace AppSetup
     using ConsoleApp;
     using Data;
     using DependencyInjection;
+    using lab5.Xml;
 
     public class StartOptions : Options
     {
         [Inject]
         public Queries Queries { get; set; }
+
+        [Inject]
+        public XmlDataLoader XmlDataLoader { get; set; }
         
         public override string Id => "Start";
         
         public StartOptions()
         {
+            AddOption("--toXml", _ => ToXml());
+            AddOption("--fromXml #id", p => FromXml(p.Int));
             AddOption("--all", _ => PrintResult(Queries.AllProjects()));
             AddOption("--completed", _ => PrintResult(Queries.CompletedProjects()));
             AddOption("--order", _ => PrintResult(Queries.ProjectsOrderByStart()));
@@ -33,6 +39,29 @@ namespace AppSetup
             AddOption("--allWorkers", _ => PrintResult(Queries.AllWorkers()));
         }
         
+        private void FromXml(int id)
+        {
+            var project = XmlDataLoader.FromXml(id);
+            PrintResult(project);
+        }
+        
+        private void ToXml()
+        {
+            foreach (var worker in Queries.AllWorkers())
+            {
+                XmlDataLoader.ToXml(worker);
+            }
+            foreach (var project in Queries.AllProjects())
+            {
+                XmlDataLoader.ToXml(project);
+            }
+        }
+        
+        private Project GetProject(int id)
+        {
+            return Queries.AllProjects().First(p => p.Id == id);
+        }
+
         private Worker GetWorker(int id)
         {
             return Queries.AllWorkers().First(w => w.Id == id);
