@@ -1,34 +1,50 @@
-namespace lab5.Xml
+namespace Xml
 {
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Xml;
+    using System.Xml.Linq;
     using System.Xml.Serialization;
     using Data;
 
     public class XmlDataLoader
     {
-        private const string AssetPath = @"C:\Users\User\Projects\#lab\lab5\assets";
+        public const string AssetPath = @"C:\Users\User\Projects\#lab\lab5\assets";
 
-        public Project FromXml(int id)
+        public Project ToProject(XElement element)
         {
             var workers = new List<Worker>();
-            var serializer = new XmlSerializer(typeof(Project));
-            serializer.UnknownElement += ProcessWorker;
+            var serializer = SetUpSerializer(workers);
+            var project = (Project) serializer.Deserialize(element.CreateReader());
+            project.Workers = workers;
+            return project;
+        }
+        
+        public Project FromXml(int id)
+        {
             using (var fs = new FileStream($"{AssetPath}/projects/{id}.xml", FileMode.Open))
             {
+                var workers = new List<Worker>();
+                var serializer = SetUpSerializer(workers);
                 var project = (Project) serializer.Deserialize(fs);
                 project.Workers = workers;
                 return project;
             }
-            
-            void ProcessWorker(object sender, XmlElementEventArgs e)
+        }
+        
+        private XmlSerializer SetUpSerializer(List<Worker> workers)
+        {
+            var serializer = new XmlSerializer(typeof(Project));
+            serializer.UnknownElement += (_, args) => ProcessWorker(workers, args);
+            return serializer;
+        }
+        
+        private void ProcessWorker(List<Worker> workers, XmlElementEventArgs e)
+        {
+            if (e.Element.Name == "Worker" && int.TryParse(e.Element.InnerText, out var workerId))
             {
-                if (e.Element.Name == "Worker" && int.TryParse(e.Element.InnerText, out var workerId))
-                {
-                    workers.Add(ToWorker(workerId));
-                }
+                workers.Add(ToWorker(workerId));
             }
         }
         

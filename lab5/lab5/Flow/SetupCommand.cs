@@ -1,4 +1,4 @@
-namespace lab4.Flow
+namespace Flow
 {
     using System;
     using System.Collections.Generic;
@@ -55,7 +55,6 @@ namespace lab4.Flow
 
         private Random random;
         private int workerCount;
-        private List<Worker> workers;
         
         public override void Execute()
         {
@@ -70,7 +69,7 @@ namespace lab4.Flow
                     Cost = (float) (50000 * random.NextDouble()),
                     Start = RandomDay(),
                     IsCompleted = random.Next(2) == 1,
-                    Workers = RandomElements(workers)
+                    Workers = RandomElements(ProjectsHolder.Workers)
                 };
                 project.End = project.IsCompleted ? RandomDayStartingAt(project.Start) : project.Start;
                 ProjectsHolder.RegisterProject(project);
@@ -79,7 +78,7 @@ namespace lab4.Flow
         
         private void CreateRandomWorkers()
         {
-            workers = Enumerable.Range(0, random.Next(3, 12)).Select(_ => CreateWorker()).ToList();
+            ProjectsHolder.Workers.AddRange(Enumerable.Range(0, random.Next(3, 12)).Select(_ => CreateWorker()));
         }
         
         private Worker CreateWorker()

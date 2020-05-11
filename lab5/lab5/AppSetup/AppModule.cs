@@ -2,8 +2,8 @@ namespace AppSetup
 {
     using AppContext;
     using Data;
-    using lab4.Flow;
-    using lab5.Xml;
+    using Flow;
+    using Xml;
 
     public class AppModule : ModuleInstaller
     {
@@ -17,7 +17,9 @@ namespace AppSetup
             InjectorBinder.Bind<XmlDataLoader>().To<XmlDataLoader>().ToSingleton();
             
             CommandBinder.Bind<StartApp>()
+                .To<CleanUpCommand>()
                 .To<SetupCommand>()
+                .To<ConvertToXElementCommand>()
                 .InSequence();
         }
     }

@@ -47,6 +47,8 @@
         <Compile Include="Data\ProjectsHolder.cs" />
         <Compile Include="Data\Queries.cs" />
         <Compile Include="Data\Worker.cs" />
+        <Compile Include="Flow\CleanUpCommand.cs" />
+        <Compile Include="Flow\ConvertToXElementCommand.cs" />
         <Compile Include="Flow\SetupCommand.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

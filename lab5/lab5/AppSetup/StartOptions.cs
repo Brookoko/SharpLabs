@@ -3,10 +3,11 @@ namespace AppSetup
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Xml.Serialization;
     using ConsoleApp;
     using Data;
     using DependencyInjection;
-    using lab5.Xml;
+    using Xml;
 
     public class StartOptions : Options
     {
@@ -16,11 +17,13 @@ namespace AppSetup
         [Inject]
         public XmlDataLoader XmlDataLoader { get; set; }
         
+        [Inject]
+        public ProjectsHolder ProjectsHolder { get; set; }
+        
         public override string Id => "Start";
         
         public StartOptions()
         {
-            AddOption("--toXml", _ => ToXml());
             AddOption("--fromXml #id", p => FromXml(p.Int));
             AddOption("--all", _ => PrintResult(Queries.AllProjects()));
             AddOption("--completed", _ => PrintResult(Queries.CompletedProjects()));
@@ -41,20 +44,8 @@ namespace AppSetup
         
         private void FromXml(int id)
         {
-            var project = XmlDataLoader.FromXml(id);
+            var project = Queries.ProjectWithId(id);
             PrintResult(project);
-        }
-        
-        private void ToXml()
-        {
-            foreach (var worker in Queries.AllWorkers())
-            {
-                XmlDataLoader.ToXml(worker);
-            }
-            foreach (var project in Queries.AllProjects())
-            {
-                XmlDataLoader.ToXml(project);
-            }
         }
         
         private Project GetProject(int id)

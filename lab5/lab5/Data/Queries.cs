@@ -3,28 +3,46 @@ namespace Data
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Xml;
     using DependencyInjection;
+    using Xml;
 
     public class Queries
     {
         [Inject]
         public ProjectsHolder ProjectsHolder { get; set; }
+
+        [Inject]
+        public XmlDataLoader XmlDataLoader { get; set; }
         
         public IEnumerable<Project> AllProjects()
         {
-            return ProjectsHolder.Projects;
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Select(XmlDataLoader.ToProject);
+        }
+        
+        public Project ProjectWithId(int id)
+        {
+            var element = ProjectsHolder.XmlProject.Elements("Project")
+                .First(p => p.Element("Id").Value == id.ToString());
+            return XmlDataLoader.ToProject(element);
         }
         
         public IEnumerable<Project> CompletedProjects()
         {
-            return ProjectsHolder.Projects
-                .Where(p => p.IsCompleted);
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Where(p => bool.Parse(p.Element("IsCompleted").Value))
+                .Select(XmlDataLoader.ToProject);
         }
         
         public IEnumerable<Project> ProjectsOrderByStart()
         {
-            return ProjectsHolder.Projects
-                .OrderBy(p => p.Start);
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .OrderBy(p => ToDateTime(p.Element("Start").Value))
+                .Select(XmlDataLoader.ToProject);
         }
         
         public IEnumerable<Project> StartBefore(DateTime time)
@@ -119,6 +137,11 @@ namespace Data
         {
             return AllWorkers()
                 .Where(w => w.FirstName == name);
+        }
+        
+        private DateTime ToDateTime(string value)
+        {
+            return XmlConvert.ToDateTime(value, XmlDateTimeSerializationMode.Utc);
         }
     }
 }
