@@ -4,6 +4,7 @@ namespace Data
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml;
+    using System.Xml.Linq;
     using DependencyInjection;
     using Xml;
 
@@ -22,6 +23,13 @@ namespace Data
                 .Select(XmlDataLoader.ToProject);
         }
         
+        public IEnumerable<Worker> AllWorkers()
+        {
+            return ProjectsHolder.XmlWorkers
+                .Elements("Worker")
+                .Select(XmlDataLoader.ToWorker);
+        }
+        
         public Project ProjectWithId(int id)
         {
             var element = ProjectsHolder.XmlProject.Elements("Project")
@@ -33,7 +41,7 @@ namespace Data
         {
             return ProjectsHolder.XmlProject
                 .Elements("Project")
-                .Where(p => bool.Parse(p.Element("IsCompleted").Value))
+                .Where(p => ToBool(p.Element("IsCompleted")))
                 .Select(XmlDataLoader.ToProject);
         }
         
@@ -41,20 +49,24 @@ namespace Data
         {
             return ProjectsHolder.XmlProject
                 .Elements("Project")
-                .OrderBy(p => ToDateTime(p.Element("Start").Value))
+                .OrderBy(p => ToDateTime(p.Element("Start")))
                 .Select(XmlDataLoader.ToProject);
         }
         
         public IEnumerable<Project> StartBefore(DateTime time)
         {
-            return ProjectsOrderByStart()
-                .Where(p => p.Start < time);
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Where(p => ToDateTime(p.Element("Start")) < time)
+                .Select(XmlDataLoader.ToProject);
         }
         
         public IEnumerable<Project> StartAfter(DateTime time)
         {
-            return ProjectsOrderByStart()
-                .Where(p => p.Start > time);
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Where(p => ToDateTime(p.Element("Start")) > time)
+                .Select(XmlDataLoader.ToProject);
         }
 
         public IEnumerable<Project> InRange(DateTime start, DateTime end)
@@ -62,86 +74,76 @@ namespace Data
             return StartAfter(start)
                 .Join(StartBefore(end), p => true, p => true, (p1, pp2) => p1);
         }
-
-        public Project FirstProject()
-        {
-            return ProjectsOrderByStart()
-                .FirstOrDefault();
-        }
         
         public float CostOfProjects()
         {
-            return ProjectsHolder.Projects
-                .Select(p => p.Cost)
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Select(p => p.Element("Cost"))
+                .Select(cost => float.Parse(cost.Value))
                 .Sum();
         }
 
-        public Project LastProjectOf(Worker worker)
+        public Project LastProjectOf(int id)
         {
-            return ProjectsHolder.Projects
-                .Where(p => p.IsCompleted)
-                .OrderByDescending(p => p.End)
-                .FirstOrDefault(p => p.Workers.Contains(worker));
+            var element = ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Where(p => ToBool(p.Element("IsCompleted")))
+                .OrderByDescending(p => ToDateTime(p.Element("End")))
+                .FirstOrDefault();
+            return XmlDataLoader.ToProject(element);
         }
 
-        public IEnumerable<Project> CurrentlyWorkingOn(Worker worker)
+        public IEnumerable<Project> CurrentlyWorkingOn(int id)
         {
-            return ProjectsHolder.Projects
-                .Where(p => !p.IsCompleted && p.Workers.Contains(worker))
-                .OrderByDescending(p => p.Start);
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .Where(p => p.Elements("Workers").Select(el => el.Value).Contains(id.ToString()))
+                .Select(XmlDataLoader.ToProject);
         }
         
-        public string CommonName()
-        {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .GroupBy(w => w.FirstName)
-                .Select(g => new
-                {
-                    Name = g.Key,
-                    Count = g.Count()
-                })
-                .OrderByDescending(g => g.Count)
-                .First().Name;
-        }
-
         public Worker WorkOnMostProjects()
         {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .GroupBy(w => w)
+            var common = ProjectsHolder.XmlProject
+                .Elements("Project")
+                .SelectMany(p => p.Elements("Workers"))
+                .Select(w => int.Parse(w.Value))
+                .GroupBy(id => id)
                 .Select(g => new
                 {
-                    Worker = g.Key,
+                    Id = g.Key,
                     Count = g.Count()
                 })
                 .OrderByDescending(g => g.Count)
-                .First().Worker;
+                .First().Id;
+            return XmlDataLoader.ToWorker(common);
         }
 
-        public int ProjectCount(Worker worker)
+        public int ProjectCount(int id)
         {
-            return ProjectsHolder.Projects
-                .Count(p => p.Workers.Contains(worker));
-        }
-
-        public IEnumerable<Worker> AllWorkers()
-        {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .OrderBy(w => w.Id)
-                .Distinct();
+            return ProjectsHolder.XmlProject
+                .Elements("Project")
+                .SelectMany(p => p.Elements("Workers"))
+                .Select(w => int.Parse(w.Value))
+                .Count(w => w == id);
         }
         
         public IEnumerable<Worker> WorkersWithName(string name)
         {
-            return AllWorkers()
-                .Where(w => w.FirstName == name);
+            return ProjectsHolder.XmlWorkers
+                .Elements("Worker")
+                .Where(w => w.Element("FirstName").Value == name)
+                .Select(XmlDataLoader.ToWorker);
         }
         
-        private DateTime ToDateTime(string value)
+        private bool ToBool(XElement element)
         {
-            return XmlConvert.ToDateTime(value, XmlDateTimeSerializationMode.Utc);
+            return XmlConvert.ToBoolean(element.Value);
+        }
+        
+        private DateTime ToDateTime(XElement element)
+        {
+            return XmlConvert.ToDateTime(element.Value, XmlDateTimeSerializationMode.Utc);
         }
     }
 }

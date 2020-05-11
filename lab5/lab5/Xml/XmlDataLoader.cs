@@ -57,7 +57,13 @@ namespace Xml
                 return worker;
             }
         }
-
+        
+        public Worker ToWorker(XElement worker)
+        {
+            var serializer = new XmlSerializer(typeof(Worker));
+            return (Worker) serializer.Deserialize(worker.CreateReader());
+        }
+        
         public void ToXml(Project project)
         {
             var serializer = new XmlSerializer(typeof(Project));

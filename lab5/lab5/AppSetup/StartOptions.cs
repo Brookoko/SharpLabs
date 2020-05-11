@@ -26,36 +26,24 @@ namespace AppSetup
         {
             AddOption("--fromXml #id", p => FromXml(p.Int));
             AddOption("--all", _ => PrintResult(Queries.AllProjects()));
+            AddOption("--workers", _ => PrintResult(Queries.AllWorkers()));
             AddOption("--completed", _ => PrintResult(Queries.CompletedProjects()));
             AddOption("--order", _ => PrintResult(Queries.ProjectsOrderByStart()));
             AddOption("--before #y #m #d", p => PrintResult(Queries.StartBefore(ToDate(p.Ints.ToArray()))));
             AddOption("--after #y #m #d", p => PrintResult(Queries.StartAfter(ToDate(p.Ints.ToArray()))));
             AddOption("--range #y1 #m1 #d1 #y2 #m2 #d2", p => PrintResult(Range(p.Ints)));
-            AddOption("--first", p => PrintResult(Queries.FirstProject()));
             AddOption("--cost", p => PrintResult(Queries.CostOfProjects()));
-            AddOption("--lastOf #id", p =>  PrintResult(Queries.LastProjectOf(GetWorker(p.Int))));
-            AddOption("--workingOn #id", p =>  PrintResult(Queries.CurrentlyWorkingOn(GetWorker(p.Int))));
+            AddOption("--lastOf #id", p =>  PrintResult(Queries.LastProjectOf(p.Int)));
+            AddOption("--workingOn #id", p =>  PrintResult(Queries.CurrentlyWorkingOn(p.Int)));
             AddOption("--withName $name", p => PrintResult(Queries.WorkersWithName(p.String)));
-            AddOption("--common", _ => PrintResult(Queries.CommonName()));
             AddOption("--most", _ => PrintResult(Queries.WorkOnMostProjects()));
-            AddOption("--count #id", p =>  PrintResult(Queries.ProjectCount(GetWorker(p.Int))));
-            AddOption("--allWorkers", _ => PrintResult(Queries.AllWorkers()));
+            AddOption("--count #id", p =>  PrintResult(Queries.ProjectCount(p.Int)));
         }
         
         private void FromXml(int id)
         {
             var project = Queries.ProjectWithId(id);
             PrintResult(project);
-        }
-        
-        private Project GetProject(int id)
-        {
-            return Queries.AllProjects().First(p => p.Id == id);
-        }
-
-        private Worker GetWorker(int id)
-        {
-            return Queries.AllWorkers().First(w => w.Id == id);
         }
         
         private IEnumerable<Project> Range(List<int> ints)
