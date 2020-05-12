@@ -9,7 +9,7 @@ namespace AppContext
         public ModuleInitializerHolder ModuleInitializerHolder { get; set; }
 
         [Inject]
-        public InjectionBinder Injector { get; set; }
+        public IInjectionBinder Injector { get; set; }
         
         public override void Execute()
         {

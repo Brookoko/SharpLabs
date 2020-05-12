@@ -49,6 +49,7 @@
         <Compile Include="AppSetup\App.cs" />
         <Compile Include="AppSetup\AppModule.cs" />
         <Compile Include="AppSetup\StartOptions.cs" />
+        <Compile Include="Database.cs" />
         <Compile Include="Data\Project.cs" />
         <Compile Include="Data\ProjectsHolder.cs" />
         <Compile Include="Data\Queries.cs" />
