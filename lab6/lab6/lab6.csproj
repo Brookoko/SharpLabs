@@ -32,6 +32,14 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Devart.Data, Version=5.0.2404.0, Culture=neutral, PublicKeyToken=09af7300eec23701">
+          <HintPath>..\packages\dotConnect.Express.for.PostgreSQL.7.17.1612\lib\Devart.Data.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Devart.Data.PostgreSql, Version=7.17.1612.0, Culture=neutral, PublicKeyToken=09af7300eec23701">
+          <HintPath>..\packages\dotConnect.Express.for.PostgreSQL.7.17.1612\lib\Devart.Data.PostgreSql.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -62,6 +70,10 @@
         <Project>{3a4444a4-a3df-43c6-82bd-d4efa98c83c1}</Project>
         <Name>DependencyInjection</Name>
       </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="app.config" />
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

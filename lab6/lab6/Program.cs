@@ -1,7 +1,7 @@
 ﻿namespace lab6
 {
-    using AppContext;
     using AppSetup;
+    using AppContext = AppContext.AppContext;
     
     internal class Program
     {
