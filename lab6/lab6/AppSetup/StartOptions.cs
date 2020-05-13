@@ -20,48 +20,25 @@ namespace AppSetup
             AddOption("--all", _ => PrintResult(Queries.AllProjects()));
             AddOption("--completed", _ => PrintResult(Queries.CompletedProjects()));
             AddOption("--order", _ => PrintResult(Queries.ProjectsOrderByStart()));
-            AddOption("--before #y #m #d", p => PrintResult(Queries.StartBefore(ToDate(p.Ints.ToArray()))));
-            AddOption("--after #y #m #d", p => PrintResult(Queries.StartAfter(ToDate(p.Ints.ToArray()))));
-            AddOption("--range #y1 #m1 #d1 #y2 #m2 #d2", p => PrintResult(Range(p.Ints)));
-            AddOption("--first", p => PrintResult(Queries.FirstProject()));
-            AddOption("--cost", p => PrintResult(Queries.CostOfProjects()));
-            AddOption("--lastOf #id", p =>  PrintResult(Queries.LastProjectOf(GetWorker(p.Int))));
-            AddOption("--workingOn #id", p =>  PrintResult(Queries.CurrentlyWorkingOn(GetWorker(p.Int))));
-            AddOption("--withName $name", p => PrintResult(Queries.WorkersWithName(p.String)));
-            AddOption("--common", _ => PrintResult(Queries.CommonName()));
+            AddOption("--inDepartment $name", p => PrintResult(Queries.GetAllWorkersInDepartment(p.String)));
             AddOption("--most", _ => PrintResult(Queries.WorkOnMostProjects()));
-            AddOption("--count #id", p =>  PrintResult(Queries.ProjectCount(GetWorker(p.Int))));
-            AddOption("--allWorkers", _ => PrintResult(Queries.AllWorkers()));
+            AddOption("--workingOn #id", p =>  PrintResult(Queries.WorkingOn(p.Int)));
+            AddOption("--incomingFrom #id", p =>  PrintResult(Queries.IncomingFrom(p.Int)));
+            AddOption("--legal", _ =>  PrintResult(Queries.Legal()));
+            AddOption("--productive", _ =>  PrintResult(Queries.MostProductive()));
+            AddOption("--cost", _ => PrintResult(Queries.CostOfProjects()));
+            
+            AddOption("--create $name $type", p => PrintResult(Create(p.Strings)));
+            AddOption("--delete #id", p => PrintResult(Queries.Delete(p.Int)));
         }
         
-        private Worker GetWorker(int id)
+        private DataSet Create(List<string> strings)
         {
-            return Queries.AllWorkers().First(w => w.Id == id);
-        }
-        
-        private IEnumerable<Project> Range(List<int> ints)
-        {
-            var start = ToDate(ints.Take(3).ToArray());
-            var end = ToDate(ints.Skip(3).ToArray());
-            return Queries.InRange(start, end);
-        }
-        
-        private DateTime ToDate(int[] ints)
-        {
-            return new DateTime(ints[0], ints[1], ints[2]);
-        }
-        
-        private void PrintResult<T>(IEnumerable<T> result)
-        {
-            foreach (var res in result)
-            {
-                Console.WriteLine(res);
-            }
-        }
-
-        private void PrintResult<T>(T res)
-        {
-            Console.WriteLine(res);
+            var name = strings[0];
+            var type = strings[1];
+            if (string.IsNullOrEmpty(name)) throw new ArgumentException("Invalid name");
+            if (type != "l" && type != "n") throw new ArgumentException("Invalid type");
+            return Queries.Create(name, type[0]);
         }
 
         private void PrintResult(DataSet set)
