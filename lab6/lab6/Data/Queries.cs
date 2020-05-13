@@ -2,123 +2,91 @@ namespace Data
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Data;
     using DependencyInjection;
+    using Devart.Data.PostgreSql;
+    using lab6;
 
     public class Queries
     {
         [Inject]
-        public ProjectsHolder ProjectsHolder { get; set; }
+        public Database Database { get; set; }
         
-        public IEnumerable<Project> AllProjects()
+        public DataSet AllProjects()
         {
-            return ProjectsHolder.Projects;
+            var sql = "select * from orders";
+            var command = new PgSqlCommand(sql);
+            return Database.ExecuteCommand(command);
         }
         
         public IEnumerable<Project> CompletedProjects()
         {
-            return ProjectsHolder.Projects
-                .Where(p => p.IsCompleted);
+            throw new NotImplementedException();
         }
         
         public IEnumerable<Project> ProjectsOrderByStart()
         {
-            return ProjectsHolder.Projects
-                .OrderBy(p => p.Start);
+            throw new NotImplementedException();
         }
         
         public IEnumerable<Project> StartBefore(DateTime time)
         {
-            return ProjectsOrderByStart()
-                .Where(p => p.Start < time);
+            throw new NotImplementedException();
         }
         
         public IEnumerable<Project> StartAfter(DateTime time)
         {
-            return ProjectsOrderByStart()
-                .Where(p => p.Start > time);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Project> InRange(DateTime start, DateTime end)
         {
-            return StartAfter(start)
-                .Join(StartBefore(end), p => p.Id, p => p.Id, (p1, pp2) => p1);
+            throw new NotImplementedException();
         }
 
         public Project FirstProject()
         {
-            return ProjectsOrderByStart()
-                .FirstOrDefault();
+            throw new NotImplementedException();
         }
         
         public float CostOfProjects()
         {
-            return ProjectsHolder.Projects
-                .Select(p => p.Cost)
-                .Sum();
+            throw new NotImplementedException();
         }
 
         public Project LastProjectOf(Worker worker)
         {
-            return ProjectsHolder.Projects
-                .Where(p => p.IsCompleted)
-                .OrderByDescending(p => p.End)
-                .FirstOrDefault(p => p.Workers.Contains(worker));
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Project> CurrentlyWorkingOn(Worker worker)
         {
-            return ProjectsHolder.Projects
-                .Where(p => !p.IsCompleted && p.Workers.Contains(worker))
-                .OrderByDescending(p => p.Start);
+            throw new NotImplementedException();
         }
         
         public string CommonName()
         {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .GroupBy(w => w.FirstName)
-                .Select(g => new
-                {
-                    Name = g.Key,
-                    Count = g.Count()
-                })
-                .OrderByDescending(g => g.Count)
-                .First().Name;
+            throw new NotImplementedException();
         }
 
         public Worker WorkOnMostProjects()
         {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .GroupBy(w => w)
-                .Select(g => new
-                {
-                    Worker = g.Key,
-                    Count = g.Count()
-                })
-                .OrderByDescending(g => g.Count)
-                .First().Worker;
+            throw new NotImplementedException();
         }
 
         public int ProjectCount(Worker worker)
         {
-            return ProjectsHolder.Projects
-                .Count(p => p.Workers.Contains(worker));
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Worker> AllWorkers()
         {
-            return ProjectsHolder.Projects
-                .SelectMany(p => p.Workers)
-                .OrderBy(w => w.Id)
-                .Distinct();
+            throw new NotImplementedException();
         }
         
         public IEnumerable<Worker> WorkersWithName(string name)
         {
-            return AllWorkers()
-                .Where(w => w.FirstName == name);
+            throw new NotImplementedException();
         }
     }
 }

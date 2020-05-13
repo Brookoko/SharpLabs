@@ -51,10 +51,8 @@
         <Compile Include="AppSetup\StartOptions.cs" />
         <Compile Include="Database.cs" />
         <Compile Include="Data\Project.cs" />
-        <Compile Include="Data\ProjectsHolder.cs" />
         <Compile Include="Data\Queries.cs" />
         <Compile Include="Data\Worker.cs" />
-        <Compile Include="Flow\SetupCommand.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
@@ -75,6 +73,9 @@
     <ItemGroup>
       <None Include="app.config" />
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Flow" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
